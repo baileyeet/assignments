@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   /* 
    * Desc:
    *    Program 2 for Assignment 1. Allows user to choose snack from snackbar
@@ -87,4 +88,8 @@ void printOptions(snack* snackbar){
 		printf("%d) %s\n cost: $%f quantity: %d\n", i, snackbar[i].name, snackbar[i].cost, snackbar[i].quantity);
 	printf("\n");
 	}
+=======
+int main() {
+  return 0;
+>>>>>>> 0baaa1267aee03906be3cf0a9e84b755a7692fbd
 }

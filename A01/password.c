@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 /***************************************************
@@ -43,4 +44,8 @@ void replace (char* str, char old, char new) {
 		    str[i] = new;
 	    }
     }
+=======
+int main() {
+  return 0;
+>>>>>>> 0baaa1267aee03906be3cf0a9e84b755a7692fbd
 }

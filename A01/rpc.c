@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /***************************************************i
  * rpc.c
  * Author: Bailey Hirota
@@ -120,3 +121,13 @@ void printWinner(int aiScore, int playerScore) {
 		printf("Tie.\n");
 	}
 }
+=======
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+  srand(time(0));
+  return 0;
+}
+
+>>>>>>> 0baaa1267aee03906be3cf0a9e84b755a7692fbd
