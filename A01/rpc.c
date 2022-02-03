@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /***************************************************i
  * rpc.c
  * Author: Bailey Hirota
@@ -9,6 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <time.h>
 
 // methods defined later in code
 int playRound(int, int, int);
@@ -121,13 +121,3 @@ void printWinner(int aiScore, int playerScore) {
 		printf("Tie.\n");
 	}
 }
-=======
-#include <stdlib.h>
-#include <time.h>
-
-int main() {
-  srand(time(0));
-  return 0;
-}
-
->>>>>>> 0baaa1267aee03906be3cf0a9e84b755a7692fbd
