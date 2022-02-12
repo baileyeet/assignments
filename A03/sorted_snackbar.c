@@ -68,9 +68,11 @@ void clear(struct snack* snacks) {
 
 void print(struct snack* snacks) {
 	struct snack* current = snacks;
+	int count = 0;
 	while (current != NULL) {
-		printf("Name: %s\nQuantity: %d\nCost:$%f\n", current->name, current->quantity, current->cost);
+		printf("%d) \n Name: %s Quantity: %d Cost:$%f\n", count, current->name, current->quantity, current->cost);
 		current = current->next;
+		count++;
 	}
 }
 
@@ -92,7 +94,6 @@ int main() {
 		printf("Enter a cost: ");
 		scanf(" %f", &cost);
 		head = insert_sorted(head, name, quantity, cost);
-		printf("end");
 	}
 	printf("Welcome to Sorted Sally's Snack Bar.\n");
 	print(head);
