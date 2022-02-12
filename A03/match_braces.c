@@ -101,22 +101,23 @@ int main(int argc, char* argv[]) {
 	int col = 1;
 	char c = ' ';
 	struct node* top = NULL;
-	//if (argc < 1) {
-	//	return 1;
-	//}
-	//file_name = argv[0];
-	FILE *fp;	
-	fp = fopen("prog1.c", "r");
+	if (argc < 2) {
+		printf("Must include file as param\n");
+		return 1;
+	}
+	file_name = argv[1];
+	FILE *fp;
+	fp = fopen(file_name, "r");
 
 	if(fp == NULL) { // check if successful
-		perror("Error in opening file");
+		printf("Cannot open file: %s\n", argv[1]);
 		return -1;
 	}
 
 	while(c = fgetc(fp)) {
-		if( feof(fp) ) {
-			break ;
-		}	
+		if (feof(fp) || c == '\0') {
+			break;
+		}
 		if (c == '{') {
 			top = push(c, line, col, top);		
 		} else if (c == '}') {
@@ -144,7 +145,6 @@ int main(int argc, char* argv[]) {
 		col++;	
 	}
 	fclose(fp);
-	//clear(top);
-
+	clear(top);
 	return 0;
 }
