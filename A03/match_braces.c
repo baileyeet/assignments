@@ -119,14 +119,28 @@ int main(int argc, char* argv[]) {
 		}	
 		if (c == '{') {
 			top = push(c, line, col, top);		
-			//printf("(%d, %d)\n", line, col);
+			printf("(%d, %d)\n", line, col);
 		} else if (c == '}') {
+			int first_line = 0;
+			int first_col = 0;
+			char val = ' ';
 			// pop here and get last element	
 			//		if (pushed->sym == pop(top)->sym) {
 			//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
-			printf("(%d, %d)\n", top->linenum, top->colnum);
-			top = pop(top);
-			printf("(%d, %d)\n", top->linenum, top->colnum);
+			printf("(%d, %d)\n", line, col);
+			if (top != NULL) {
+				first_line = top->linenum;
+				first_col = top->colnum;
+				val = top->sym;
+				//printf("(%d, %d)\n", top->linenum, top->colnum);
+				top = pop(top);
+				if (top != NULL && val == top->sym) {
+					//printf("Found matching braces: (%d, %d) -> (%d, %d)\n", first_line, first_col, top->linenum, top->colnum);
+				}
+			}
+			//}
+			//top = pop(top);
+		//	printf("(%d, %d)\n", top->linenum, top->colnum);
 			//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
 			//printf("(%d, %d)\n", line, col);
 			//			continue;
