@@ -119,15 +119,12 @@ int main(int argc, char* argv[]) {
 		}	
 		if (c == '{') {
 			top = push(c, line, col, top);		
-			printf("(%d, %d)\n", line, col);
 		} else if (c == '}') {
 			int first_line = 0;
 			int first_col = 0;
 			char val = ' ';
 			// pop here and get last element	
-			//		if (pushed->sym == pop(top)->sym) {
-			//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
-			printf("(%d, %d)\n", line, col);
+			//printf("(%d, %d)\n", line, col);
 			if (top != NULL) {
 				first_line = top->linenum;
 				first_col = top->colnum;
@@ -135,19 +132,11 @@ int main(int argc, char* argv[]) {
 				//printf("(%d, %d)\n", top->linenum, top->colnum);
 				top = pop(top);
 				if (top != NULL && val == top->sym) {
-					//printf("Found matching braces: (%d, %d) -> (%d, %d)\n", first_line, first_col, top->linenum, top->colnum);
+					printf("Found matching braces: (%d, %d) -> (%d, %d)\n", first_line, first_col, line, col);
 				}
+				printf("Unmatched brace on Line %d and Column %d\n", line, col);
 			}
-			//}
-			//top = pop(top);
-		//	printf("(%d, %d)\n", top->linenum, top->colnum);
-			//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
-			//printf("(%d, %d)\n", line, col);
-			//			continue;
-			//			}
-			//printf("(%d, %d)\n", peek(top)->linenum, peek(top)->colnum);
-			//printf("(%d, %d)\n", line, col);
-			//pop(top);
+			printf("Unmatched brace on Line %d and Column %d\n", line, col);
 		} else if (c == '\n') {
 			line++;
 			col = 1;
