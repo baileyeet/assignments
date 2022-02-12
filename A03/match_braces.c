@@ -99,8 +99,8 @@ int main(int argc, char* argv[]) {
 	char current[32];
 	int line = 1;
 	int col = 1;
-	int is_first = 0;
-	struct node* top;
+	char c = ' ';
+	struct node* top = NULL;
 	//if (argc < 1) {
 	//	return 1;
 	//}
@@ -113,42 +113,35 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	while(fgets(current, sizeof(current), fp)) {
-		for (int i = 0; current[i] != '\0'; i++) {
-			if (current[i] == '{') {
-				top = push('{', line, col, top);		
-				//printf("(%d, %d)\n", line, col);
-			} else if (current[i] == '}') {
-				//pop(top);
-				// pop here and get last element	
-		//		if (pushed->sym == pop(top)->sym) {
-				//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
-				printf("(%d, %d)\n", top->linenum, top->colnum);
-				top = pop(top);
-				printf("(%d, %d)\n", top->linenum, top->colnum);
-				//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
-				//printf("(%d, %d)\n", line, col);
-		//			continue;
-	//			}
-				//printf("(%d, %d)\n", peek(top)->linenum, peek(top)->colnum);
-				//printf("(%d, %d)\n", line, col);
-				//pop(top);
-			} else if (current[i] == '\n') {
-				line++;
-				col = 1;
-				//		printf("b");
-				continue;
-			}
-			col++;	
-			//	printf("%c", current[i]);
+	while(c = fgetc(fp)) {
+		if( feof(fp) ) {
+			break ;
+		}	
+		if (c == '{') {
+			top = push(c, line, col, top);		
+			//printf("(%d, %d)\n", line, col);
+		} else if (c == '}') {
+			// pop here and get last element	
+			//		if (pushed->sym == pop(top)->sym) {
+			//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
+			printf("(%d, %d)\n", top->linenum, top->colnum);
+			top = pop(top);
+			printf("(%d, %d)\n", top->linenum, top->colnum);
+			//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
+			//printf("(%d, %d)\n", line, col);
+			//			continue;
+			//			}
+			//printf("(%d, %d)\n", peek(top)->linenum, peek(top)->colnum);
+			//printf("(%d, %d)\n", line, col);
+			//pop(top);
+		} else if (c == '\n') {
+			line++;
+			col = 1;
+			continue;
 		}
-		//printf("%c", peek(top)->sym);
+		col++;	
 	}
 	fclose(fp);
-
-	//struct node* top = push('r', 1, 1, NULL);
-	//push('r', 1, 1, top);
-	//print(top);
 	//clear(top);
 
 	return 0;
