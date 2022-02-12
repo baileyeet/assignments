@@ -37,17 +37,17 @@ struct node* push(char sym, int line, int col, struct node* top) {
 		new_top->next = NULL;
 		return new_top;
 	}
-	struct node* placer = top;
-	while (placer->next != NULL)  {
-		placer = placer->next;
-	}
+	//struct node* placer = top;
+	//while (placer->next != NULL)  {
+	//	placer = placer->next;
+	//}
 	new_top->sym = sym;
 	new_top->linenum = line;
 	new_top->colnum = col;
-	new_top->next = NULL;
-	if(top != NULL) {
-		placer->next = new_top;	
-	}
+	new_top->next = top;
+	//if(top != NULL) {
+	//	placer->next = new_top;	
+	//}
 	return new_top;
 }
 
@@ -56,32 +56,15 @@ struct node* push(char sym, int line, int col, struct node* top) {
 // Returns the new top of the stack
 struct node* pop(struct node* top) {
 	struct node* placer = top;
-	
-	if (placer->next == NULL) {
+	if (top == NULL) {
 		return NULL;
 	}
-
-	while (placer->next->next != NULL)  {
-		placer = placer->next;
-	}
-	struct node* new_last = placer;
-	free(new_last->next);
-	new_last->next == NULL;
-	return new_last;
+	placer = top;
+	top = top->next;
+	free(placer);
+	return top;
 
 }
-
-/*struct node* peek(struct node* top) {
-	struct node* placer = top;
-	if (placer == NULL) {
-		return NULL;
-	}
-	while (placer->next != NULL)  {
-		placer = placer->next;
-	}
-	return placer;
-
-}*/
 
 // Delete (e.g. free) all nodes in the given stack
 // Para top: the top node of the stack (NULL if empty)
@@ -118,7 +101,6 @@ int main(int argc, char* argv[]) {
 	int col = 1;
 	int is_first = 0;
 	struct node* top;
-	struct node* pushed;
 	//if (argc < 1) {
 	//	return 1;
 	//}
@@ -138,15 +120,14 @@ int main(int argc, char* argv[]) {
 					top = push('{', line, col, NULL);
 					is_first = 1;;
 				}
-				pushed = push('{', line, col, top);		
+				top = push('{', line, col, top);		
 				//printf("(%d, %d)\n", line, col);
 			} else if (current[i] == '}') {
 				//pop(top);
 				// pop here and get last element	
 		//		if (pushed->sym == pop(top)->sym) {
-				printf("%c %d %d", pushed->sym, pushed->linenum, pushed->colnum);	
 				printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
-				printf("(%d, %d)\n", pushed->linenum, pushed->colnum);
+				printf("(%d, %d)\n", top->linenum, top->colnum);
 				printf("(%d, %d)\n", line, col);
 		//			continue;
 	//			}
