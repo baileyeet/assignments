@@ -42,7 +42,8 @@ struct snack* insert_sorted(struct snack* snacks,
 	while (isRightPlace != 1 && current->next != NULL) {
 		if (strcmp(current->name, name) < 0) {
 			current = current->next;
-		} else {
+		} 
+		else {
 			isRightPlace = 1;
 		}	
 	}
@@ -50,7 +51,9 @@ struct snack* insert_sorted(struct snack* snacks,
 	if (current->next != NULL) {
 		insert->next = current->next->next;
 	}
-	//current->next = insert;
+	if (strcmp(snacks->name, insert->name) == 0) { 
+		return insert;
+	}	
 	return snacks;
 }
 
