@@ -35,16 +35,26 @@ struct snack* insert_sorted(struct snack* snacks,
         insert->cost = cost;
         insert->next = NULL;
 	struct snack* current;
-	if (snacks == NULL || strcmp(snacks->name, name) > 1) {
+	if (snacks == NULL || strcmp(snacks->name, name) > 0) {
 		insert->next = snacks;
 		snacks = insert;
-	} else {
+	} else if (snacks->next == NULL) {
+		if (strcmp(current->name, name) < 1) {
+			insert->next = snacks;
+			snacks = insert;
+		} else {
+		}
+	}	
+	else {
 		current = snacks;
 		while (current->next != NULL && strcmp(current->name, name) < 1) {
 			current = current->next;
 		}
 		insert->next = current->next;
+		printf("insert->next: %s", insert->next->name);
+		printf("current->next %s", current->next->name);
 		current->next = insert;
+		printf("insert->name: %s", insert->name);
 	}
 	return snacks;
 }
