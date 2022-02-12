@@ -56,6 +56,11 @@ struct node* push(char sym, int line, int col, struct node* top) {
 // Returns the new top of the stack
 struct node* pop(struct node* top) {
 	struct node* placer = top;
+	
+	if (placer->next == NULL) {
+		return NULL;
+	}
+
 	while (placer->next->next != NULL)  {
 		placer = placer->next;
 	}
