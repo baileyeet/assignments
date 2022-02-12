@@ -42,19 +42,14 @@ struct snack* insert_sorted(struct snack* snacks,
 		if (strcmp(current->name, name) < 1) {
 			insert->next = snacks;
 			snacks = insert;
-		} else {
-		}
-	}	
-	else {
+		} 
+	} else {
 		current = snacks;
-		while (current->next != NULL && strcmp(current->name, name) < 1) {
+		while (current->next != NULL && strcmp(current->next->name, name) < 1) {
 			current = current->next;
 		}
 		insert->next = current->next;
-		printf("insert->next: %s", insert->next->name);
-		printf("current->next %s", current->next->name);
 		current->next = insert;
-		printf("insert->name: %s", insert->name);
 	}
 	return snacks;
 }

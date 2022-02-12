@@ -116,19 +116,18 @@ int main(int argc, char* argv[]) {
 	while(fgets(current, sizeof(current), fp)) {
 		for (int i = 0; current[i] != '\0'; i++) {
 			if (current[i] == '{') {
-				if (is_first == 0) {
-					top = push('{', line, col, NULL);
-					is_first = 1;;
-				}
 				top = push('{', line, col, top);		
 				//printf("(%d, %d)\n", line, col);
 			} else if (current[i] == '}') {
 				//pop(top);
 				// pop here and get last element	
 		//		if (pushed->sym == pop(top)->sym) {
-				printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
+				//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
 				printf("(%d, %d)\n", top->linenum, top->colnum);
-				printf("(%d, %d)\n", line, col);
+				top = pop(top);
+				printf("(%d, %d)\n", top->linenum, top->colnum);
+				//printf("%c %d %d", pop(top)->sym, pop(top)->linenum, pop(top)->colnum);
+				//printf("(%d, %d)\n", line, col);
 		//			continue;
 	//			}
 				//printf("(%d, %d)\n", peek(top)->linenum, peek(top)->colnum);
