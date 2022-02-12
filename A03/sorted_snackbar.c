@@ -42,18 +42,44 @@ struct snack* insert_sorted(struct snack* snacks,
 	while (isRightPlace != 1 && current->next != NULL) {
 		if (strcmp(current->name, name) < 0) {
 			current = current->next;
-		} 
+		} else if (strcmp(current->name, name) > 0) {
+			
+		}
 		else {
 			isRightPlace = 1;
 		}	
 	}
 	current->next = insert;
-	if (current->next != NULL) {
-		insert->next = current->next->next;
-	}
 	if (strcmp(snacks->name, insert->name) == 0) { 
 		return insert;
 	}	
+	return snacks;
+}
+
+struct snack* insert(struct snack* snacks,
+                const char* name, int quantity, float cost) {
+	struct snack *insert;
+        insert = malloc(sizeof(*insert));
+        if (insert == NULL) {
+                printf("Error with malloc");
+                return NULL;
+        }
+        strcpy(insert->name, name);
+        insert->quantity = quantity;
+        insert->cost = cost;
+        insert->next = NULL;
+	struct snack* current;
+	if (snacks == NULL || strcmp(snacks->name, name) > 1) {
+		insert->next = snacks;
+		snacks = insert;
+	} else {
+		current = snacks;
+		while (current->next != NULL && strcmp(current->name, name) < 1) {
+			current = current->next;
+		}
+		insert->next = current->next;
+		current->next = insert;
+	}
 	return snacks;
 }
 
@@ -96,7 +122,8 @@ int main() {
 		scanf(" %d", &quantity);
 		printf("Enter a cost: ");
 		scanf(" %f", &cost);
-		head = insert_sorted(head, name, quantity, cost);
+		head = insert(head, name, quantity, cost);
+		print(head);
 	}
 	printf("Welcome to Sorted Sally's Snack Bar.\n");
 	print(head);
