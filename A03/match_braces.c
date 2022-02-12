@@ -123,20 +123,19 @@ int main(int argc, char* argv[]) {
 			int first_line = 0;
 			int first_col = 0;
 			char val = ' ';
-			// pop here and get last element	
-			//printf("(%d, %d)\n", line, col);
 			if (top != NULL) {
 				first_line = top->linenum;
 				first_col = top->colnum;
 				val = top->sym;
-				//printf("(%d, %d)\n", top->linenum, top->colnum);
 				top = pop(top);
 				if (top != NULL && val == top->sym) {
 					printf("Found matching braces: (%d, %d) -> (%d, %d)\n", first_line, first_col, line, col);
+				} else {
+					printf("Unmatched brace on Line %d and Column %d\n", line, col);
 				}
+			} else {
 				printf("Unmatched brace on Line %d and Column %d\n", line, col);
 			}
-			printf("Unmatched brace on Line %d and Column %d\n", line, col);
 		} else if (c == '\n') {
 			line++;
 			col = 1;
