@@ -87,7 +87,7 @@ void print(struct node* top) {
 		return; 
 	}
 	while (placer != NULL)  {
-		printf("%c, %d, %d", placer->sym, placer->linenum, placer->colnum);
+		printf("Unmatched brace on Line %d and Column %d\n", placer->linenum, placer->colnum);
 		placer = placer->next;
 	}
 	return;
@@ -121,20 +121,11 @@ int main(int argc, char* argv[]) {
 		if (c == '{') {
 			top = push(c, line, col, top);		
 		} else if (c == '}') {
-			int first_line = 0;
-			int first_col = 0;
-			char val = ' ';
 			if (top != NULL) {
-				first_line = top->linenum;
-				first_col = top->colnum;
-				val = top->sym;
+				printf("Found matching braces: (%d, %d) -> (%d, %d)\n", top->linenum, top->colnum, line, col);
 				top = pop(top);
-				if (top != NULL && val == top->sym) {
-					printf("Found matching braces: (%d, %d) -> (%d, %d)\n", first_line, first_col, line, col);
-				} else {
-					printf("Unmatched brace on Line %d and Column %d\n", line, col);
-				}
-			} else {
+			} 
+			else {
 				printf("Unmatched brace on Line %d and Column %d\n", line, col);
 			}
 		} else if (c == '\n') {
@@ -144,6 +135,7 @@ int main(int argc, char* argv[]) {
 		}
 		col++;	
 	}
+	print(top);
 	fclose(fp);
 	clear(top);
 	return 0;

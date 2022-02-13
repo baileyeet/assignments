@@ -89,12 +89,11 @@ int main() {
 	for (int i = 0; i < num_snacks; i++) {
 		printf("Enter a name: ");
 		scanf(" %s", name);
+		printf("Enter a cost: ");
+                scanf(" %f", &cost);
 		printf("Enter a quantity: ");
 		scanf(" %d", &quantity);
-		printf("Enter a cost: ");
-		scanf(" %f", &cost);
 		head = insert_sorted(head, name, quantity, cost);
-		print(head);
 	}
 	printf("Welcome to Sorted Sally's Snack Bar.\n");
 	print(head);
