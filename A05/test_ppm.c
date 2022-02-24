@@ -1,8 +1,25 @@
 #include <stdio.h>
 #include "read_ppm.h"
+#include <stdlib.h>
 
 int main(int argc, char** argv) {
+        int w = 0;
+        int h = 0;
+        int count = 1;
+        char * file = "feep-raw.ppm";
+        struct ppm_pixel* arr = read_ppm(file, &w, &h);
+        printf("Testing file %s: %d %d\n", file, w, h);
+        for (int i = 0; i < w*h; i++) {
+                printf("(%d, %d, %d)", arr[i].red, arr[i].green, arr[i].blue);
+                if(count == w) {
+                        printf("\n");
+                        count = 0;
+                }
+                count++;
+        }
 
-  return 0;
+        free(arr);
+        arr = NULL;
+        return 0;
 }
 
