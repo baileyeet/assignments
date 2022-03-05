@@ -58,14 +58,22 @@ int main(int argc, char** argv) {
 			printf("%d", temp);
 			if (temp == 0) {
 				printf("!");
-				pxs[count].red = 1;			
+				if (pxs[count].red < 255) {
+					pxs[count].red += 1;
+				} else {
+					pxs[count].red -= 1;
+				}
 			}	
 		} else if (i % 3 == 1) {
 			temp = string_to_binary("lol")[i] - '0' == pxs[count].green % 2;
 			printf("%d", temp);
 			if (temp == 0) {
 				printf("!");
-				pxs[count].green = 2;
+			if (pxs[count].green < 255) {
+                                        pxs[count].green += 1;
+                                } else {
+                                        pxs[count].green -= 1;
+                                }
 			}
 		} else { // i % 3 == 2
 			temp = string_to_binary("lol")[i] - '0' == pxs[count].blue % 2;
@@ -73,7 +81,11 @@ int main(int argc, char** argv) {
 			printf("%d", temp);
 			if (temp == 0) {
 				printf("!");
-				pxs[count].blue = 3;
+				if (pxs[count].blue < 255) {
+                                        pxs[count].blue += 1;
+                                } else {
+                                        pxs[count].blue -= 1;
+                                }
 			}
 		}
 	}
