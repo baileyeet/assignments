@@ -32,6 +32,7 @@ int main(int argc, char** argv) {
 	char* file = argv[1];
 	int w = 0;
 	int h = 0;
+	char* word = "";
 	struct ppm_pixel* pxs = read_ppm(file, &w, &h);
 	printf("Reading %s with a width %d and a height %d\n", file, w, h);
 	for (int i = 0; i < w * h; i++) {
@@ -39,7 +40,14 @@ int main(int argc, char** argv) {
 		printf("%d", pxs[i].green % 2);
 		printf("%d", pxs[i].blue % 2);
 	}
-	printf("\n");
+	int max = (w*h*3)/8 - 1;
+	printf("Max number of characters in the image: %d", max);
+	printf("\n Enter a phrase: ");
+	scanf("%s", word);
+	if (strlen(word) > max) {
+		printf("Exceeded max length");
+		return -1;
+	}
 	int c = 1;
 	for (int i = 0; i < w*h; i++) {
 		printf("(%d, %d, %d)", pxs[i].red, pxs[i].green, pxs[i].blue);
@@ -52,9 +60,9 @@ int main(int argc, char** argv) {
 	printf("\n");
 	int count = 0;
 	int temp = 0;
-	for (int i = 0; i < strlen(string_to_binary("lol")); i++) {
+	for (int i = 0; i < strlen(string_to_binary(word)); i++) {
 		if (i % 3 == 0) {
-			temp = string_to_binary("lol")[i] - '0' == pxs[count].red % 2;
+			temp = string_to_binary(word)[i] - '0' == pxs[count].red % 2;
 			printf("%d", temp);
 			if (temp == 0) {
 				printf("!");
@@ -65,7 +73,7 @@ int main(int argc, char** argv) {
 				}
 			}	
 		} else if (i % 3 == 1) {
-			temp = string_to_binary("lol")[i] - '0' == pxs[count].green % 2;
+			temp = string_to_binary(word)[i] - '0' == pxs[count].green % 2;
 			printf("%d", temp);
 			if (temp == 0) {
 				printf("!");
@@ -76,7 +84,7 @@ int main(int argc, char** argv) {
                                 }
 			}
 		} else { // i % 3 == 2
-			temp = string_to_binary("lol")[i] - '0' == pxs[count].blue % 2;
+			temp = string_to_binary(word)[i] - '0' == pxs[count].blue % 2;
 			count++;
 			printf("%d", temp);
 			if (temp == 0) {
