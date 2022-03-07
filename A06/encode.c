@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
 	}*/
 	int max = (w*h*3)/8 - 1;
 	printf("Max number of characters in the image: %d", max);
-	printf("\n Enter a phrase: ");
+	printf("\nEnter a phrase: ");
 	char* word = "placeholder";
 	scanf(" %s", word);
 	if (sizeof(word) > max) {
