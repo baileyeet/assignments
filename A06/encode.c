@@ -27,28 +27,27 @@ int main(int argc, char** argv) {
 		return -1;
 	}
 
-	printf("%s", string_to_binary("lol"));
 
 	char* file = argv[1];
 	int w = 0;
 	int h = 0;
-	char* word = "";
 	struct ppm_pixel* pxs = read_ppm(file, &w, &h);
 	printf("Reading %s with a width %d and a height %d\n", file, w, h);
-	for (int i = 0; i < w * h; i++) {
+	/*for (int i = 0; i < w * h; i++) {
 		printf("%d", pxs[i].red % 2);
 		printf("%d", pxs[i].green % 2);
 		printf("%d", pxs[i].blue % 2);
-	}
+	}*/
 	int max = (w*h*3)/8 - 1;
 	printf("Max number of characters in the image: %d", max);
 	printf("\n Enter a phrase: ");
-	scanf("%s", word);
-	if (strlen(word) > max) {
+	char* word = "placeholder";
+	scanf(" %s", word);
+	if (sizeof(word) > max) {
 		printf("Exceeded max length");
 		return -1;
 	}
-	int c = 1;
+	/*int c = 1;
 	for (int i = 0; i < w*h; i++) {
 		printf("(%d, %d, %d)", pxs[i].red, pxs[i].green, pxs[i].blue);
 		if(c == w) {
@@ -56,16 +55,16 @@ int main(int argc, char** argv) {
 			c = 0;
 		}
 		c++;
-	}
+	}*/
 	printf("\n");
 	int count = 0;
 	int temp = 0;
 	for (int i = 0; i < strlen(string_to_binary(word)); i++) {
 		if (i % 3 == 0) {
 			temp = string_to_binary(word)[i] - '0' == pxs[count].red % 2;
-			printf("%d", temp);
+			//printf("%d", temp);
 			if (temp == 0) {
-				printf("!");
+				//printf("!");
 				if (pxs[count].red < 255) {
 					pxs[count].red += 1;
 				} else {
@@ -74,9 +73,9 @@ int main(int argc, char** argv) {
 			}	
 		} else if (i % 3 == 1) {
 			temp = string_to_binary(word)[i] - '0' == pxs[count].green % 2;
-			printf("%d", temp);
+			//printf("%d", temp);
 			if (temp == 0) {
-				printf("!");
+				//printf("!");
 			if (pxs[count].green < 255) {
                                         pxs[count].green += 1;
                                 } else {
@@ -86,9 +85,9 @@ int main(int argc, char** argv) {
 		} else { // i % 3 == 2
 			temp = string_to_binary(word)[i] - '0' == pxs[count].blue % 2;
 			count++;
-			printf("%d", temp);
+			//printf("%d", temp);
 			if (temp == 0) {
-				printf("!");
+				//printf("!");
 				if (pxs[count].blue < 255) {
                                         pxs[count].blue += 1;
                                 } else {
@@ -97,7 +96,7 @@ int main(int argc, char** argv) {
 			}
 		}
 	}
-	printf("DONE\n");
+	/*printf("DONE\n");
 	int c2 = 1;
 	for (int i = 0; i < w*h; i++) {
 		printf("(%d, %d, %d)", pxs[i].red, pxs[i].green, pxs[i].blue);
@@ -106,8 +105,13 @@ int main(int argc, char** argv) {
 			c2 = 0;
 		}
 		c2++;
-	}
-	//printf("\nR %u %u", pxs[3].red, pxs[3].red + 1);
+	}*/
+	char* write = strtok(file, ".");
+
+        strcat(write, "-glitch.ppm");
+        printf("Writing file %s\n", write);
+        write_ppm(write, pxs, w, h);
+	
 	return 0;
 
 }
