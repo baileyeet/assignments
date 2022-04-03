@@ -1,21 +1,99 @@
 = Hardware specifications
 
 Where did your run your tests? A laptop, or goldengate?
-
+goldengate
 
 What are the performance specifications of the machine: number and speed of
 processors, size of RAM? (use `lscpu` and `free -m`)
 
+lscpu 
+CPU(s):                          64
+
+CPU MHz:                         1200.016
+CPU max MHz:                     4100.0000
+CPU min MHz:                     1200.0000
+
+free -m
+              total        used        free      shared  buff/cache   available
+Mem:          95320       10650       72740           4       11929       83835
+Swap:          8191        1176        7015
 
 = Allocations
 
 In `simple.c`, where does the increase in 1040 bytes come from?
 Why is the value 1040 bytes?
-
+the increase in 1040 bytes comes from printf and it's 1040 bytes because malloc allocates 1040 bytes for printf
 
 How many bytes does `mylloc_list.c` allocate when the program ends? Explain why
 this amount makes sense.
-
+Allocates 160 bytes by the end of the program
+I allocate 100 bytes 10 times, and the program reuses teh chunk of memory I initially allocatd for the 100 bytes so no extra memory is used. Then, an extra 60 bytes makes sense considering the other variable declarations and actions performed in the program for a total of 160 bytes.  
 
 = Fragementation
+Fragmentation is basicaly a fancy way of saying insufficent/inefficient use of memory allocation. Basically, it's when there are problems with the way that memory is distrubted to different processes and it can cause mismatches between amounts of memory allocated vs how much is needed, and the way it's allocated too.
 
+Internal fragmentation is when a process is allocated a certain amount of memory but it doesn't use all of it, so there's a little bit of extra memory in the allocated block left over. So, the extra bit of memory is wasted and it can't be used to allocate to other processes. In our code, an example of internal fragmentation is when there's a difference between the size of the chunk and currently used amount of memory.
+
+External fragmentation is when there's enough memory byte wise for a process to occur, but because the memory may be spread out in different chunks rather than in one contiguous block of memory, the process can't occur. This is due to internal fragmentation. 
+
+The initial top of the heap is 0x7f7c7ebbe000.
+Total blocks: 160 Free: 102 In Use: 58
+Internal unused: total: 1826304 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 144325 average: 1414.950980 least: 10 most: 3984
+0
+The current top of the heap is 0x7f7c7ec14527.
+Increased by 345 (0x159) Kbyte
+Total blocks: 166 Free: 112 In Use: 54
+Internal unused: total: 1700352 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 177529 average: 1585.080357 least: 10 most: 3984
+1
+The current top of the heap is 0x7f7c7ec1a327.
+Increased by 368 (0x170) Kbyte
+Total blocks: 168 Free: 116 In Use: 52
+Internal unused: total: 1637376 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 189321 average: 1632.077586 least: 10 most: 3997
+2
+The current top of the heap is 0x7f7c7ec1c282.
+Increased by 376 (0x178) Kbyte
+Total blocks: 171 Free: 119 In Use: 52
+Internal unused: total: 1637376 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 201215 average: 1690.882353 least: 10 most: 3998
+3
+The current top of the heap is 0x7f7c7ec1f188.
+Increased by 388 (0x184) Kbyte
+Total blocks: 174 Free: 124 In Use: 50
+Internal unused: total: 1574400 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 222185 average: 1791.814516 least: 10 most: 3999
+4
+The current top of the heap is 0x7f7c7ec22095.
+Increased by 400 (0x190) Kbyte
+Total blocks: 175 Free: 115 In Use: 60
+Internal unused: total: 1889280 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 189120 average: 1644.521739 least: 10 most: 3999
+5
+The current top of the heap is 0x7f7c7ec23045.
+Increased by 404 (0x194) Kbyte
+Total blocks: 175 Free: 127 In Use: 48
+Internal unused: total: 1511424 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 227211 average: 1789.062992 least: 10 most: 4000
+6
+The current top of the heap is 0x7f7c7ec23045.
+Increased by 404 (0x194) Kbyte
+Total blocks: 176 Free: 124 In Use: 52
+Internal unused: total: 1637376 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 219923 average: 1773.572581 least: 10 most: 3999
+7
+The current top of the heap is 0x7f7c7ec23ff5.
+Increased by 407 (0x197) Kbyte
+Total blocks: 177 Free: 117 In Use: 60
+Internal unused: total: 1889280 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 193677 average: 1655.358974 least: 10 most: 4000
+8
+The current top of the heap is 0x7f7c7ec24fa5.
+Increased by 411 (0x19b) Kbyte
+Total blocks: 177 Free: 129 In Use: 48
+Internal unused: total: 1511424 average: 31488.000000 least: 31488 most: 31488
+External unused: total: 237641 average: 1842.178295 least: 10 most: 4000
+9
+The current top of the heap is 0x7f7c7ec24fa5.
+Increased by 411 (0x19b) Kbyte
