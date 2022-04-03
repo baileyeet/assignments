@@ -6,7 +6,7 @@ int main() {
 	printf("Enter 4 characters: ");
 	scanf("%s", arr);
 		
-	unsigned int word;
+	int word = 0;
 	int counter = 0;
 	for (int i = 3; i >= 0; i--) {
 		unsigned int temp = arr[i] << counter;
