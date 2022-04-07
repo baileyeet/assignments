@@ -43,6 +43,7 @@ struct ppm_pixel* read_ppm(const char* filename, int* w, int* h) {
 void write_ppm(const char* filename, struct ppm_pixel* pixels, int w, int h) {
         FILE *fp;
         fp = fopen(filename, "wb");
+	fprintf(fp, "P6\n%d %d\n255\n", w, h);
 
         fwrite(pixels, sizeof(struct ppm_pixel), w * h, fp);
         fclose(fp);
