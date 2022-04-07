@@ -8,7 +8,7 @@
 #include <string.h>
 
 int main(int argc, char* argv[]) {
-	srand(time(0));
+	//srand(time(0));
 	int size = 480;
 	float xmin = -2.0;
 	float xmax = 0.47;
@@ -92,6 +92,7 @@ int main(int argc, char* argv[]) {
 	  strcat(write, time(0));
 	  strcat(write, ".ppm");
 	  printf("Writing file %s\n", write);*/
+	srand(time(0));
 	write_ppm("example.ppm", palette, row, col);
 	free(palette);
 	free(base);
