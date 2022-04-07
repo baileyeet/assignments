@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
 	  strcat(write, time(0));
 	  strcat(write, ".ppm");
 	  printf("Writing file %s\n", write);*/
-	write_ppm("example.ppm", base, row, col);
+	write_ppm("example.ppm", palette, row, col);
 	free(palette);
 	free(base);
 	return 0;
