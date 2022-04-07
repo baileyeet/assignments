@@ -54,8 +54,8 @@ int main(int argc, char* argv[]) {
 	int col = size;
 	for (int i = 0; i < row; i++) {
 		for (int j = 0; j < col; j++) {
-			float xfrac = (float)i/size;
-			float yfrac = (float)j/size;
+			float xfrac = (float)j/size;
+			float yfrac = (float)i/size;
 			float x0 = xmin + xfrac * (xmax-xmin);
 			float y0 = ymin + yfrac * (ymax-ymin);
 
