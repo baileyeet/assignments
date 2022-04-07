@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
 				iter++;
 			}
 			if (iter < maxIterations) { 
-				palette[iter].red = base[iter].red + rand() % 100 - 50;
+				palette[size * j + i].red = base[iter].red + rand() % 100 - 50;
 				palette[iter].blue = base[iter].blue + rand() % 100 - 50;
 				palette[iter].green = base[iter].green + rand() % 100 - 50;
 			}
@@ -99,5 +99,4 @@ int main(int argc, char* argv[]) {
 	return 0;
 
 
-	// compute image
 }
