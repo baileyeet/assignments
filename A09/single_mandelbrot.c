@@ -30,12 +30,25 @@ int main(int argc, char* argv[]) {
 	printf("Generating mandelbrot with size %dx%d\n", size, size);
 	printf("  X range = [%.4f,%.4f]\n", xmin, xmax);
 	printf("  Y range = [%.4f,%.4f]\n", ymin, ymax);
-	struct ppm_pixel* palette = malloc(sizeof(struct ppm_pixel));
 	
+	struct ppm_pixel* base = malloc(size * sizeof(struct ppm_pixel));
+	struct ppm_pixel* palette = malloc(size * sizeof(struct ppm_pixel));
+
+	if (base == NULL) {
+		printf("Malloc error");
+		return -1;
+	}
+
 	if (palette == NULL) {
 		printf("Malloc error");
 		return -1;
 	}	
+
+	for (int i = 0; i < size; i++) {
+		base[i].red = rand() % 255;
+		base[i].green = rand() % 255;
+		base[i].blue = rand() % 255;
+	}
 
 	int row = size;
 	int col = size;
@@ -45,7 +58,7 @@ int main(int argc, char* argv[]) {
 			float yfrac = (float)j/size;
 			float x0 = xmin + xfrac * (xmax-xmin);
 			float y0 = ymin + yfrac * (ymax-ymin);
-			
+
 			float x,y = 0;
 			int iter = 0;
 
@@ -56,9 +69,9 @@ int main(int argc, char* argv[]) {
 				iter++;
 			}
 			if (iter < maxIterations) { 
-				palette[iter].red = rand() % 255;
-				palette[iter].blue = rand() % 255;
-				palette[iter].green = rand() % 255;
+				palette[iter].red = base[iter].red + rand() % 100 - 50;
+				palette[iter].blue = base[iter].blue + rand() % 100 - 50;
+				palette[iter].green = base[iter].green + rand() % 100 - 50;
 			}
 			else {
 				palette[iter].red = 0;
@@ -73,14 +86,16 @@ int main(int argc, char* argv[]) {
 	// todo: your work here
 	// generate pallet
 	/*char* write = "mandelbrot";
-	strcat(write, "-");
-	strcat(write, size);
-	strcat(write, time(0));
-	strcat(write, ".ppm");
-	printf("Writing file %s\n", write);*/
+	  strcat(write, "-");
+	  strcat(write, size);
+	  strcat(write, time(0));
+	  strcat(write, ".ppm");
+	  printf("Writing file %s\n", write);*/
 	write_ppm("example.ppm", palette, row, col);
 	free(palette);
+	free(base);
 	return 0;
+
 
 	// compute image
 }
