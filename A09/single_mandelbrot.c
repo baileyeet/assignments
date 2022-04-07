@@ -8,7 +8,7 @@
 #include <string.h>
 
 int main(int argc, char* argv[]) {
-	//srand(time(0));
+	srand(time(0));
 	int size = 480;
 	float xmin = -2.0;
 	float xmax = 0.47;
@@ -31,8 +31,8 @@ int main(int argc, char* argv[]) {
 	printf("  X range = [%.4f,%.4f]\n", xmin, xmax);
 	printf("  Y range = [%.4f,%.4f]\n", ymin, ymax);
 	
-	struct ppm_pixel* base = malloc(size * size * sizeof(struct ppm_pixel));
-	struct ppm_pixel* palette = malloc(size * size * sizeof(struct ppm_pixel));
+	struct ppm_pixel* base = (struct ppm_pixel*)malloc(maxIterations * sizeof(struct ppm_pixel));
+	struct ppm_pixel* palette = (struct ppm_pixel*)malloc(size * size * sizeof(struct ppm_pixel));
 
 	if (base == NULL) {
 		printf("Malloc error");
@@ -43,20 +43,21 @@ int main(int argc, char* argv[]) {
 		printf("Malloc error");
 		return -1;
 	}	
-	int iter = 0;
-	for (int i = 0; i < size*size && iter < maxIterations; i++) {
+	
+	for (int i = 0; i < maxIterations; i++) {
 		base[i].red = rand() % 255;
 		base[i].green = rand() % 255;
 		base[i].blue = rand() % 255;
-		iter++;
 	}
 
-	int row = size;
-	int col = size;
-	for (int i = 0; i < row; i++) {
-		for (int j = 0; j < col; j++) {
-			float xfrac = (float)j/size;
-			float yfrac = (float)i/size;
+	int r = size;
+	int c = size;
+	for (int i = 0; i < r; i++) {
+		for (int j = 0; j < c; j++) {
+			float row = r;
+			float col = c;
+			float xfrac = col/size;
+			float yfrac = row/size;
 			float x0 = xmin + xfrac * (xmax-xmin);
 			float y0 = ymin + yfrac * (ymax-ymin);
 
@@ -92,8 +93,7 @@ int main(int argc, char* argv[]) {
 	  strcat(write, time(0));
 	  strcat(write, ".ppm");
 	  printf("Writing file %s\n", write);*/
-	srand(time(0));
-	write_ppm("example.ppm", palette, row, col);
+	write_ppm("example.ppm", palette, size, size);
 	free(palette);
 	free(base);
 	return 0;
