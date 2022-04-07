@@ -31,8 +31,8 @@ int main(int argc, char* argv[]) {
 	printf("  X range = [%.4f,%.4f]\n", xmin, xmax);
 	printf("  Y range = [%.4f,%.4f]\n", ymin, ymax);
 	
-	struct ppm_pixel* base = malloc(size * sizeof(struct ppm_pixel));
-	struct ppm_pixel* palette = malloc(size * sizeof(struct ppm_pixel));
+	struct ppm_pixel* base = malloc(size * size * sizeof(struct ppm_pixel));
+	struct ppm_pixel* palette = malloc(size * size * sizeof(struct ppm_pixel));
 
 	if (base == NULL) {
 		printf("Malloc error");
@@ -43,8 +43,8 @@ int main(int argc, char* argv[]) {
 		printf("Malloc error");
 		return -1;
 	}	
-
-	for (int i = 0; i < size; i++) {
+	int iter = 0;
+	for (int i = 0; i < size*size && iter < maxIterations; i++) {
 		base[i].red = rand() % 255;
 		base[i].green = rand() % 255;
 		base[i].blue = rand() % 255;
