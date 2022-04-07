@@ -48,6 +48,7 @@ int main(int argc, char* argv[]) {
 		base[i].red = rand() % 255;
 		base[i].green = rand() % 255;
 		base[i].blue = rand() % 255;
+		iter++;
 	}
 
 	int row = size;
