@@ -72,13 +72,13 @@ int main(int argc, char* argv[]) {
 			}
 			if (iter < maxIterations) { 
 				palette[size * j + i].red = base[iter].red + rand() % 100 - 50;
-				palette[iter].blue = base[iter].blue + rand() % 100 - 50;
-				palette[iter].green = base[iter].green + rand() % 100 - 50;
+				palette[size * j + i].blue = base[iter].blue + rand() % 100 - 50;
+				palette[size * j + i].green = base[iter].green + rand() % 100 - 50;
 			}
 			else {
-				palette[iter].red = 0;
-				palette[iter].blue = 0;
-				palette[iter].green = 0;
+				palette[size * j + i].red = 0;
+				palette[size * j + i].blue = 0;
+				palette[size * j + i].green = 0;
 			}
 
 		}
