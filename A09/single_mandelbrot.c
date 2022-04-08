@@ -55,9 +55,6 @@ int main(int argc, char* argv[]) {
 	for (int i = 0; i < size * size; i++) {
 		float xfrac = ((float)col)/size;
 		float yfrac = ((float)row)/size;
-		printf("xfrac: %f\n", xfrac);
-		printf("yfrac: %f\n", yfrac);
-
 		float x0 = xmin + xfrac * (xmax-xmin);
 		float y0 = ymin + yfrac * (ymax-ymin);
 
