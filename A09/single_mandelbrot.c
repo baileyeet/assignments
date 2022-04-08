@@ -50,8 +50,8 @@ int main(int argc, char* argv[]) {
 		base[i].blue = rand() % 255;
 	}
 
-	int row = 0;
-	int col = 0;
+	float row = 0;
+	float col = 0;
 	for (int i = 0; i < size * size; i++) {
 		float xfrac = ((float)col)/size;
 		float yfrac = ((float)row)/size;
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 		int iter = 0;
 
 		while (iter < maxIterations && (x*x + y*y) < 2*2) {
-			int xtmp = x*x - y*y + x0;
+			float xtmp = x*x - y*y + x0;
 			y = 2*x*y + y0;
 			x = xtmp;
 			iter++;
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 			palette[i].green = 0;
 		}
 		col ++;
-		
+
 		if (col == size) {
 			row++;
 			col = 0;
