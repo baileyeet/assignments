@@ -49,15 +49,12 @@ int main(int argc, char* argv[]) {
 		base[i].green = rand() % 255;
 		base[i].blue = rand() % 255;
 	}
-
-	int r = size;
-	int c = size;
-	for (int i = 0; i < r; i++) {
-		for (int j = 0; j < c; j++) {
-			float row = i;
-			float col = j;
-			float xfrac = col/size;
-			float yfrac = row/size;
+	
+	int row = 0;
+	int col = 0;
+	for (int i = 0; i < size * size; i++) {
+			float xfrac = (float)col/size;
+			float yfrac = (float)row/size;
 			float x0 = xmin + xfrac * (xmax-xmin);
 			float y0 = ymin + yfrac * (ymax-ymin);
 
@@ -71,17 +68,21 @@ int main(int argc, char* argv[]) {
 				iter++;
 			}
 			if (iter < maxIterations) { 
-				palette[size * i + j].red = base[iter].red + rand() % 100 - 50;
-				palette[size * i + j].blue = base[iter].blue + rand() % 100 - 50;
-				palette[size * i + j].green = base[iter].green + rand() % 100 - 50;
+				palette[i].red = base[iter].red + rand() % 100 - 50;
+				palette[i].blue = base[iter].blue + rand() % 100 - 50;
+				palette[i].green = base[iter].green + rand() % 100 - 50;
 			}
 			else {
-				palette[size * i + j].red = 0;
-				palette[size * i + j].blue = 0;
-				palette[size * i + j].green = 0;
+				palette[i].red = 0;
+				palette[i].blue = 0;
+				palette[i].green = 0;
+			}
+			col += 1;
+			if (col == size) {
+				row++;
+				col = 0;
 			}
 
-		}
 	}
 
 
