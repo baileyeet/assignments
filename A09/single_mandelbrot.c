@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 		float x,y = 0;
 		int iter = 0;
 
-		while (iter < maxIterations && x*x + y*y < 2*2) {
+		while (iter < maxIterations && (x*x + y*y) < 2*2) {
 			int xtmp = x*x - y*y + x0;
 			y = 2*x*y + y0;
 			x = xtmp;
@@ -77,7 +77,8 @@ int main(int argc, char* argv[]) {
 			palette[i].blue = 0;
 			palette[i].green = 0;
 		}
-		col += 1;
+		col ++;
+		
 		if (col == size) {
 			row++;
 			col = 0;
