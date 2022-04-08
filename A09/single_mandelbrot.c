@@ -30,7 +30,7 @@ int main(int argc, char* argv[]) {
 	printf("Generating mandelbrot with size %dx%d\n", size, size);
 	printf("  X range = [%.4f,%.4f]\n", xmin, xmax);
 	printf("  Y range = [%.4f,%.4f]\n", ymin, ymax);
-	
+
 	struct ppm_pixel* base = (struct ppm_pixel*)malloc(maxIterations * sizeof(struct ppm_pixel));
 	struct ppm_pixel* palette = (struct ppm_pixel*)malloc(size * size * sizeof(struct ppm_pixel));
 
@@ -43,45 +43,48 @@ int main(int argc, char* argv[]) {
 		printf("Malloc error");
 		return -1;
 	}	
-	
+
 	for (int i = 0; i < maxIterations; i++) {
 		base[i].red = rand() % 255;
 		base[i].green = rand() % 255;
 		base[i].blue = rand() % 255;
 	}
-	
+
 	int row = 0;
 	int col = 0;
 	for (int i = 0; i < size * size; i++) {
-			float xfrac = (float)col/size;
-			float yfrac = (float)row/size;
-			float x0 = xmin + xfrac * (xmax-xmin);
-			float y0 = ymin + yfrac * (ymax-ymin);
+		float xfrac = ((float)col)/size;
+		float yfrac = ((float)row)/size;
+		printf("xfrac: %f\n", xfrac);
+		printf("yfrac: %f\n", yfrac);
 
-			float x,y = 0;
-			int iter = 0;
+		float x0 = xmin + xfrac * (xmax-xmin);
+		float y0 = ymin + yfrac * (ymax-ymin);
 
-			while (iter < maxIterations && x*x + y*y < 2*2) {
-				int xtmp = x*x - y*y + x0;
-				y = 2*x*y + y0;
-				x = xtmp;
-				iter++;
-			}
-			if (iter < maxIterations) { 
-				palette[i].red = base[iter].red + rand() % 100 - 50;
-				palette[i].blue = base[iter].blue + rand() % 100 - 50;
-				palette[i].green = base[iter].green + rand() % 100 - 50;
-			}
-			else {
-				palette[i].red = 0;
-				palette[i].blue = 0;
-				palette[i].green = 0;
-			}
-			col += 1;
-			if (col == size) {
-				row++;
-				col = 0;
-			}
+		float x,y = 0;
+		int iter = 0;
+
+		while (iter < maxIterations && x*x + y*y < 2*2) {
+			int xtmp = x*x - y*y + x0;
+			y = 2*x*y + y0;
+			x = xtmp;
+			iter++;
+		}
+		if (iter < maxIterations) { 
+			palette[i].red = base[iter].red + rand() % 100 - 50;
+			palette[i].blue = base[iter].blue + rand() % 100 - 50;
+			palette[i].green = base[iter].green + rand() % 100 - 50;
+		}
+		else {
+			palette[i].red = 0;
+			palette[i].blue = 0;
+			palette[i].green = 0;
+		}
+		col += 1;
+		if (col == size) {
+			row++;
+			col = 0;
+		}
 
 	}
 
