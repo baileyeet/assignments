@@ -54,8 +54,8 @@ int main(int argc, char* argv[]) {
 	int c = size;
 	for (int i = 0; i < r; i++) {
 		for (int j = 0; j < c; j++) {
-			float row = r;
-			float col = c;
+			float row = i;
+			float col = j;
 			float xfrac = col/size;
 			float yfrac = row/size;
 			float x0 = xmin + xfrac * (xmax-xmin);
@@ -71,14 +71,14 @@ int main(int argc, char* argv[]) {
 				iter++;
 			}
 			if (iter < maxIterations) { 
-				palette[size * j + i].red = base[iter].red + rand() % 100 - 50;
-				palette[size * j + i].blue = base[iter].blue + rand() % 100 - 50;
-				palette[size * j + i].green = base[iter].green + rand() % 100 - 50;
+				palette[size * i + j].red = base[iter].red + rand() % 100 - 50;
+				palette[size * i + j].blue = base[iter].blue + rand() % 100 - 50;
+				palette[size * i + j].green = base[iter].green + rand() % 100 - 50;
 			}
 			else {
-				palette[size * j + i].red = 0;
-				palette[size * j + i].blue = 0;
-				palette[size * j + i].green = 0;
+				palette[size * i + j].red = 0;
+				palette[size * i + j].blue = 0;
+				palette[size * i + j].green = 0;
 			}
 
 		}
