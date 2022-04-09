@@ -8,8 +8,7 @@
 #include <string.h>
 
 int main(int argc, char* argv[]) {
-	srand(time(0));
-	int size = 480;
+	int size = 2000;
 	float xmin = -2.0;
 	float xmax = 0.47;
 	float ymin = -1.12;
@@ -31,6 +30,11 @@ int main(int argc, char* argv[]) {
 	printf("  X range = [%.4f,%.4f]\n", xmin, xmax);
 	printf("  Y range = [%.4f,%.4f]\n", ymin, ymax);
 
+	struct timeval tstart, tend;
+  double timer;
+  srand(time(0));
+  gettimeofday(&tstart, NULL);
+	
 	struct ppm_pixel* base = (struct ppm_pixel*)malloc(maxIterations * sizeof(struct ppm_pixel));
 	struct ppm_pixel* palette = (struct ppm_pixel*)malloc(size * size * sizeof(struct ppm_pixel));
 
@@ -86,16 +90,13 @@ int main(int argc, char* argv[]) {
 
 	}
 
-
-	// todo: your work here
-	// generate pallet
-	/*char* write = "mandelbrot";
-	  strcat(write, "-");
-	  strcat(write, size);
-	  strcat(write, time(0));
-	  strcat(write, ".ppm");
-	  printf("Writing file %s\n", write);*/
-	write_ppm("example.ppm", palette, size, size);
+	gettimeofday(&tend, NULL);
+        timer = tend.tv_sec - tstart.tv_sec + (tend.tv_usec - tstart.tv_usec)/1.e6;
+	printf("Computed mandelbrot set (%dx%d) in %.6g seconds\n", size, size,timer);
+	char filename[45];
+	sprintf(filename, "mandelbrot-%d-%ld.ppm", size, time(0));
+        printf("Writing file: %s\n", filename);
+	write_ppm(filename, palette, size, size);
 	free(palette);
 	free(base);
 	return 0;
