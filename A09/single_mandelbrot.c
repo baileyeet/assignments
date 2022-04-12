@@ -8,7 +8,7 @@
 #include <string.h>
 
 int main(int argc, char* argv[]) {
-	int size = 100;
+	int size = 2000;
 	float xmin = -2.0;
 	float xmax = 0.47;
 	float ymin = -1.12;
