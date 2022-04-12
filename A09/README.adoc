@@ -29,7 +29,7 @@ the amount of time it takes to compute each image.
 | 400 | 0.287613
 | 800 | 1.06215
 | 1000 | 1.65067
-| 2000 | 145.237
+| 2000 | 6.52046
 !===
 
 = Multi-process mandelbrot
