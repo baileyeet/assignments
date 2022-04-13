@@ -15,6 +15,16 @@ struct snack {
 	struct snack* next;
 };
 
+void print(struct snack* snacks) {
+        struct snack* current = snacks;
+        int count = 0;
+        while (current != NULL) {
+                printf("%d) \n Name: %s Quantity: %d Cost:$%f\n", count, current->name, current->quantity, current->cost);
+                current = current->next;
+                count++;
+        }
+}
+
 // Insert a new node to a list (implemented as a linked list). 
 // The new node should store the given properties
 // Param snacks: the first item in the list (NULL if empty)
@@ -25,12 +35,29 @@ struct snack {
 struct snack* insert_sorted(struct snack* snacks,
                 const char* name, int quantity, float cost) {
 	struct snack *insert;
+	struct snack *current;
         insert = malloc(sizeof(*insert));
         if (insert == NULL) {
                 printf("Error with malloc");
                 return NULL;
         }
-        strcpy(insert->name, name);
+	strcpy(insert->name, name);
+	insert->quantity = quantity;
+	insert->cost = cost;
+	insert->next = NULL;
+	if (snacks == NULL || strcmp(snacks->name, name) <= 0) {
+		insert->next = snacks;
+		snacks = insert;
+	} else {
+		current = snacks;
+		while (current->next != NULL && strcmp(current->next->name, insert->name) < 0) {
+			current = current->next;
+		}
+		insert->next = current->next;
+		current = insert;
+	}
+	print(snacks);
+        /*strcpy(insert->name, name);
         insert->quantity = quantity;
         insert->cost = cost;
         insert->next = NULL;
@@ -50,7 +77,7 @@ struct snack* insert_sorted(struct snack* snacks,
 		}
 		insert->next = current->next;
 		current->next = insert;
-	}
+	}*/
 	return snacks;
 }
 
@@ -66,7 +93,7 @@ void clear(struct snack* snacks) {
 	}
 }
 
-void print(struct snack* snacks) {
+/*void print(struct snack* snacks) {
 	struct snack* current = snacks;
 	int count = 0;
 	while (current != NULL) {
@@ -74,7 +101,7 @@ void print(struct snack* snacks) {
 		current = current->next;
 		count++;
 	}
-}
+}*/
 
 int main() {
 	int num_snacks;
