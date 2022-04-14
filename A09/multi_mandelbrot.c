@@ -110,19 +110,19 @@ int main(int argc, char* argv[]) {
 			if(count == 1){
 				printf("child 1 Lauched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), 0, size/2, 0, size/2);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size/2);
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, 0, size/2);
 				fflush(stdout);
 				exit(0);
 			} else if(count == 2){
 				printf("child 2 Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), size/2, size, 0, size/2);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0, size);
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0, size/2);
 				fflush(stdout);
 				exit(0);
 			} else if(count == 3){
 				printf("child 3 Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), 0, size/2, size/2, size);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size/2);
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size);
 				fflush(stdout);
 				exit(0);
 			} else if(count == 4){
