@@ -9,7 +9,7 @@
 #include <sys/ipc.h>
 #include "read_ppm.h"
 
-void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, int xmin, int xmax, int ymin, int ymax, int maxIterations, int beginR, int beginC, int endC) {
+void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, float xmin, float xmax, float ymin, float ymax, int maxIterations, int beginR, int beginC, int endC) {
 
 	float row = beginR;
 	float col = beginC;
@@ -140,7 +140,8 @@ int main(int argc, char* argv[]) {
 
 	for (int i = 1; i <=4; i++) {
 		int status;
-		int pid = wait(&status);
+		int pid = wait(&status);i
+		fflush(stdout);
 	}
 
 	write_ppm("TEST.ppm", palette, size, size);
