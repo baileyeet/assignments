@@ -9,11 +9,11 @@
 #include <sys/ipc.h>
 #include "read_ppm.h"
 
-void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, int xmin, int xmax, int ymin, int ymax, int maxIterations, int beginR, int beginC) {
+void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, int xmin, int xmax, int ymin, int ymax, int maxIterations, int beginR, int beginC, int endC) {
 
 	float row = beginR;
 	float col = beginC;
-	for (int i = 0; i < size/2; i++) {
+	for (int i = 0; i < size*size; i++) {
 		float xfrac = ((float)col)/size;
 		float yfrac = ((float)row)/size;
 		float x0 = xmin + xfrac * (xmax-xmin);
@@ -41,7 +41,7 @@ void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, int x
 		}
 		col ++;
 
-		if (col == beginC) {
+		if (col == endC) {
 			row++;
 			col = 0;
 		}
@@ -110,25 +110,25 @@ int main(int argc, char* argv[]) {
 			if(count == 1){
 				printf("child 1 Lauched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), 0, size/2, 0, size/2);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2);
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size/2);
 				fflush(stdout);
 				exit(0);
 			} else if(count == 2){
 				printf("child 2 Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), size/2, size, 0, size/2);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0);
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0), size;
 				fflush(stdout);
 				exit(0);
 			} else if(count == 3){
 				printf("child 3 Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), 0, size/2, size/2, size);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2);
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size/2);
 				fflush(stdout);
 				exit(0);
 			} else if(count == 4){
 				printf("child 4 Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), size/2, size, size/2, size);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, size/2);
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, size/2, size);
 				fflush(stdout);
 				exit(0);
 			}
