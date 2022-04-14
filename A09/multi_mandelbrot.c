@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
 			} else if(count == 2){
 				printf("child 2 Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), size/2, size, 0, size/2);
-				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0), size;
+				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0, size);
 				fflush(stdout);
 				exit(0);
 			} else if(count == 3){
