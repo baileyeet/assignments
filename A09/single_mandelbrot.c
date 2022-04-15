@@ -7,8 +7,50 @@
 #include <math.h>
 #include <string.h>
 
+void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, float xmin, float xmax, float ymin, float ymax, int maxIterations) {
+
+        float row = 0;
+        float col = 0;
+        for (int i = 0; i < size*size; i++) {
+                float xfrac = ((float)col)/size;
+                float yfrac = ((float)row)/size;
+                float x0 = xmin + xfrac * (xmax-xmin);
+                float y0 = ymin + yfrac * (ymax-ymin);
+
+                float x =  0;
+                float y = 0;
+                int iter = 0;
+
+                while (iter < maxIterations && (x*x + y*y) < 2*2) {
+                        float xtmp = x*x - y*y + x0;
+                        y = 2*x*y + y0;
+                        x = xtmp;
+                        iter++;
+                }
+                if (iter < maxIterations) {
+                        palette[i].red = base[iter].red + rand() % 100 - 50;
+                        palette[i].blue = base[iter].blue + rand() % 100 - 50;
+                        palette[i].green = base[iter].green + rand() % 100 - 50;
+                }
+                else {
+                        palette[i].red = 0;
+                        palette[i].blue = 0;
+                        palette[i].green = 0;
+                }
+                col ++;
+
+                if (col == size) {
+                        row++;
+                        col = 0;
+                }
+
+        }
+
+}
+
+
 int main(int argc, char* argv[]) {
-	int size = 2000;
+	int size = 20;
 	float xmin = -2.0;
 	float xmax = 0.47;
 	float ymin = -1.12;
@@ -54,7 +96,8 @@ int main(int argc, char* argv[]) {
 		base[i].blue = rand() % 255;
 	}
 
-	float row = 0;
+	generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations);
+	/*float row = 0;
 	float col = 0;
 	for (int i = 0; i < size * size; i++) {
 		float xfrac = ((float)col)/size;
@@ -89,7 +132,7 @@ int main(int argc, char* argv[]) {
 			col = 0;
 		}
 
-	}
+	}*/
 
 	gettimeofday(&tend, NULL);
         timer = tend.tv_sec - tstart.tv_sec + (tend.tv_usec - tstart.tv_usec)/1.e6;

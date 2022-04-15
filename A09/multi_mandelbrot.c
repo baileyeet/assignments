@@ -51,7 +51,7 @@ void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, float
 }
 
 int main(int argc, char* argv[]) {
-	int size = 480;
+	int size = 2000;
 	float xmin = -2.0;
 	float xmax = 0.47;
 	float ymin = -1.12;
@@ -113,28 +113,32 @@ int main(int argc, char* argv[]) {
 		pid = fork();
 		if(pid == 0){
 			if(count == 1){
-				printf("child 1 Lauched child process: %d\n",getpid());
+				printf("Lauched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), 0, size/2, 0, size/2);
 				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, 0, size/2);
 				fflush(stdout);
+				printf("Child process complete: %d\n", getpid());
 				exit(0);
 			} else if(count == 2){
-				printf("child 2 Launched child process: %d\n",getpid());
+				printf("Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), size/2, size, 0, size/2);
 				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0, size/2);
+				printf("Child process complete: %d\n", getpid());
 				fflush(stdout);
 				exit(0);
 			} else if(count == 3){
-				printf("child 3 Launched child process: %d\n",getpid());
+				printf("Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), 0, size/2, size/2, size);
 				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size);
+				printf("Child process complete: %d\n", getpid());
 				fflush(stdout);
 				exit(0);
 			} else if(count == 4){
-				printf("child 4 Launched child process: %d\n",getpid());
+				printf("Launched child process: %d\n",getpid());
 				printf("%d) Sub-image block: cols(%d, %d) to rows (%d, %d)\n", getpid(), size/2, size, size/2, size);
 				generate(base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, size/2, size);
 				fflush(stdout);
+				printf("Child process complete: %d\n", getpid());
 				exit(0);
 			}
 		}
