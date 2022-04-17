@@ -34,28 +34,29 @@ int main(int argc, char** argv) {
 	struct ppm_pixel* pxs = read_ppm(file, &w, &h);
 	printf("Reading %s with a width %d and a height %d\n", file, w, h);
 	/*for (int i = 0; i < w * h; i++) {
-		printf("%d", pxs[i].red % 2);
-		printf("%d", pxs[i].green % 2);
-		printf("%d", pxs[i].blue % 2);
-	}*/
+	  printf("%d", pxs[i].red % 2);
+	  printf("%d", pxs[i].green % 2);
+	  printf("%d", pxs[i].blue % 2);
+	  }*/
 	int max = (w*h*3)/8 - 1;
 	printf("Max number of characters in the image: %d", max);
+	char* word = malloc(sizeof(char)*(max+1));
 	printf("\nEnter a phrase: ");
-	char* word = "placeholder";
-	scanf(" %s", word);
-	if (sizeof(word) > max) {
+	fgets(word, sizeof(char)*(max+1), stdin);
+
+	if (strlen(word) > max) {
 		printf("Exceeded max length");
 		return -1;
 	}
 	/*int c = 1;
-	for (int i = 0; i < w*h; i++) {
-		printf("(%d, %d, %d)", pxs[i].red, pxs[i].green, pxs[i].blue);
-		if(c == w) {
-			printf("\n");
-			c = 0;
-		}
-		c++;
-	}*/
+	  for (int i = 0; i < w*h; i++) {
+	  printf("(%d, %d, %d)", pxs[i].red, pxs[i].green, pxs[i].blue);
+	  if(c == w) {
+	  printf("\n");
+	  c = 0;
+	  }
+	  c++;
+	  }*/
 	printf("\n");
 	int count = 0;
 	int temp = 0;
@@ -76,11 +77,11 @@ int main(int argc, char** argv) {
 			//printf("%d", temp);
 			if (temp == 0) {
 				//printf("!");
-			if (pxs[count].green < 255) {
-                                        pxs[count].green += 1;
-                                } else {
-                                        pxs[count].green -= 1;
-                                }
+				if (pxs[count].green < 255) {
+					pxs[count].green += 1;
+				} else {
+					pxs[count].green -= 1;
+				}
 			}
 		} else { // i % 3 == 2
 			temp = string_to_binary(word)[i] - '0' == pxs[count].blue % 2;
@@ -89,29 +90,29 @@ int main(int argc, char** argv) {
 			if (temp == 0) {
 				//printf("!");
 				if (pxs[count].blue < 255) {
-                                        pxs[count].blue += 1;
-                                } else {
-                                        pxs[count].blue -= 1;
-                                }
+					pxs[count].blue += 1;
+				} else {
+					pxs[count].blue -= 1;
+				}
 			}
 		}
 	}
 	/*printf("DONE\n");
-	int c2 = 1;
-	for (int i = 0; i < w*h; i++) {
-		printf("(%d, %d, %d)", pxs[i].red, pxs[i].green, pxs[i].blue);
-		if(c2 == w) {
-			printf("\n");
-			c2 = 0;
-		}
-		c2++;
-	}*/
+	  int c2 = 1;
+	  for (int i = 0; i < w*h; i++) {
+	  printf("(%d, %d, %d)", pxs[i].red, pxs[i].green, pxs[i].blue);
+	  if(c2 == w) {
+	  printf("\n");
+	  c2 = 0;
+	  }
+	  c2++;
+	  }*/
 	char* write = strtok(file, ".");
 
-        strcat(write, "-glitch.ppm");
-        printf("Writing file %s\n", write);
-        write_ppm(write, pxs, w, h);
-	
+	strcat(write, "-glitch.ppm");
+	printf("Writing file %s\n", write);
+	write_ppm(write, pxs, w, h);
+	free(word);
 	return 0;
 
 }
