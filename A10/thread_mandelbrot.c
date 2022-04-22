@@ -69,7 +69,7 @@ void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, float
 
 void Compute(void *id) {
         struct Info *myid = (struct Info *) id;
-        
+	printf("compute\n");        
         generate(myid->base, myid->palette, myid->size, myid->xmin, myid->xmax, myid->ymin, myid->ymax, myid->maxIterations, myid->beginR, myid->beginC, myid->endC, myid->mutex);
 
 }
@@ -136,9 +136,14 @@ int main(int argc, char* argv[]) {
 	struct Info two = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0, size/2, &mutex};
         pthread_create(&thread2, NULL, (void*) Compute, (void*) &two);
 	struct Info three = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size, &mutex};
-        pthread_create(&thread1, NULL, (void*) Compute, (void*) &three);
+        pthread_create(&thread3, NULL, (void*) Compute, (void*) &three);
 	struct Info four = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, size/2, size, &mutex};
-        pthread_create(&thread1, NULL, (void*) Compute, (void*) &four);
+        pthread_create(&thread4, NULL, (void*) Compute, (void*) &four);
+	
+	pthread_join(thread1, NULL);
+	pthread_join(thread2, NULL);
+	pthread_join(thread3, NULL);
+	pthread_join(thread4, NULL);
 
 	gettimeofday(&tend, NULL);
         timer = tend.tv_sec - tstart.tv_sec + (tend.tv_usec - tstart.tv_usec)/1.e6;
