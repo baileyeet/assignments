@@ -131,8 +131,15 @@ int main(int argc, char* argv[]) {
 
 	pthread_mutex_t mutex;
 	pthread_mutex_init(&mutex, NULL);
-	struct Info one = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, 0, size, &mutex};
+	struct Info one = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, 0, size/2, &mutex};
 	pthread_create(&thread1, NULL, (void*) Compute, (void*) &one);
+	struct Info two = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, 0, size/2, &mutex};
+        pthread_create(&thread2, NULL, (void*) Compute, (void*) &two);
+	struct Info three = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, 0, size/2, size, &mutex};
+        pthread_create(&thread1, NULL, (void*) Compute, (void*) &three);
+	struct Info four = {base, palette, size, xmin, xmax, ymin, ymax, maxIterations, size/2, size/2, size, &mutex};
+        pthread_create(&thread1, NULL, (void*) Compute, (void*) &four);
+
 	gettimeofday(&tend, NULL);
         timer = tend.tv_sec - tstart.tv_sec + (tend.tv_usec - tstart.tv_usec)/1.e6;
 	printf("Computed mandelbrot set (%dx%d) in %.6g seconds\n", size, size,timer);
