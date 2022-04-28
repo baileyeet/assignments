@@ -16,8 +16,8 @@ void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, float
 	for (int r = beginR; r < endR; r++) {
 		for (int c = beginC; c < endC; c++) {
 		int i = size*r + c; 
-		float xfrac = ((float)col)/size;
-		float yfrac = ((float)row)/size;
+		float xfrac = ((float)c)/size;
+		float yfrac = ((float)r)/size;
 		float x0 = xmin + xfrac * (xmax-xmin);
 		float y0 = ymin + yfrac * (ymax-ymin);
 
