@@ -75,24 +75,18 @@ void fragstats(void* buffers[], int len) {
 	}
 	int use = 0;
 	int total_unused = 0;	
-	int small,big;
-       	int first = 0;	
+	int small = 0;
+	int big = 0;
 	for (int i = 0; i < len; i++) {
 		if (buffers[i] != NULL) { //
 			struct chunk *pointer = (struct chunk*)((struct chunk*)buffers[i] - 1);
                         total_unused += pointer->size;
 			use++;
-			if (first == 0) {
-				small = pointer->size - pointer->in_use;
-				big = pointer->size - pointer->in_use;
-				first = 1;
-				continue;	
+			if (pointer->size > big) {
+				big = pointer->size;
 			}
-			if (pointer->size - pointer->in_use < small) {
-				small = pointer->size - pointer->in_use;	
-			}
-			if (pointer->size - pointer->in_use > big) {
-				big = pointer->size - pointer->in_use;
+			if (small < pointer->size) {
+				small = pointer->size;
 			}
 		}
 	}
