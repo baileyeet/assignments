@@ -26,11 +26,11 @@ Why is the value 1040 bytes?
 
 How many bytes does `mylloc_list.c` allocate when the program ends? Explain why
 this amount makes sense.
-Allocates 160 bytes by the end of the program
-I allocate 100 bytes 10 times, and the program reuses teh chunk of memory I initially allocatd for the 100 bytes so no extra memory is used. Then, an extra 60 bytes makes sense considering the other variable declarations and actions performed in the program for a total of 160 bytes.  
+Allocate 1024 for final print, 2*16 for chunk struct, and 100 for malloc size which is reused in the other 10 iterations for a total of 1156 bytes
+
 
 = Fragementation
-Fragmentation is basicaly a fancy way of saying insufficent/inefficient use of memory allocation. Basically, it's when there are problems with the way that memory is distrubted to different processes and it can cause mismatches between amounts of memory allocated vs how much is needed, and the way it's allocated too.
+Fragmentation is basicaly a fancy way of saying insufficent/inefficient use of memory allocation. Basically, it's when there are problems with the way that memory is distrubted to different processes and it can cause mismatches between amounts of memory allocated vs how much is needed, and the way it's allocated too. So when memory is divided into small and separated chunks.
 
 Internal fragmentation is when a process is allocated a certain amount of memory but it doesn't use all of it, so there's a little bit of extra memory in the allocated block left over. So, the extra bit of memory is wasted and it can't be used to allocate to other processes. In our code, an example of internal fragmentation is when there's a difference between the size of the chunk and currently used amount of memory.
 
