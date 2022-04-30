@@ -54,7 +54,7 @@ void generate(struct ppm_pixel* base, struct ppm_pixel* palette, int size, float
 }
 
 int main(int argc, char* argv[]) {
-	int size = 2000;
+	int size = 100;
 	float xmin = -2.0;
 	float xmax = 0.47;
 	float ymin = -1.12;
